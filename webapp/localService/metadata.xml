@@ -1,0 +1,124 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZGW_BAL_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="bal" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BalId"/>
+                </Key>
+                <Property Name="Action" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Action" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BalId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Berita Acara Lap." sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="BalDescr" Type="Edm.String" Nullable="false" MaxLength="150" sap:label="BAL Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WoId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Work Order ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WoDesc" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Work Order Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pspid" Type="Edm.String" Nullable="false" MaxLength="24" sap:label="Project def." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PspidT" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ekgrp" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Purch. group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EkgrpT" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Werks" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WerksT" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Name 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ebeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Purchasing doc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amt" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="3" sap:unit="Waers" sap:label="Amount Total BAL" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Lblni" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Entry Sheet" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Changedate" Type="Edm.DateTime" Precision="7" sap:label="Change Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Changeby" Type="Edm.String" MaxLength="12" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Createdate" Type="Edm.DateTime" Precision="7" sap:label="Created Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Createdby" Type="Edm.String" MaxLength="12" sap:label="User Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsReleased" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Is Released?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsSesCreated" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Is SES Created?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsSesAccepted" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Is SES Accepted?" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="balItemSet" Relationship="ZGW_BAL_SRV.header_item" FromRole="FromRole_header_item" ToRole="ToRole_header_item"/>
+                <NavigationProperty Name="sesItemSet" Relationship="ZGW_BAL_SRV.header_ses" FromRole="FromRole_header_ses" ToRole="ToRole_header_ses"/>
+            </EntityType>
+            <EntityType Name="balItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BalId"/>
+                    <PropertyRef Name="WoId"/>
+                    <PropertyRef Name="WoItemId"/>
+                </Key>
+                <Property Name="BalId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Berita Acara Lap." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WoId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Work Order ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WoItemId" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Workorder Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Posid" Type="Edm.String" Nullable="false" MaxLength="24" sap:label="WBS element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PosidT" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Aufnr" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vornr" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Activity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ebelp" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Srvpos" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="Service" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SrvposT" Type="Edm.String" Nullable="false" MaxLength="100" sap:label="Service Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Waers" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+                <Property Name="Uom" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Unit of Measures" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="GrossPrice" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="3" sap:unit="Waers" sap:label="Gross" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="GrossPriceC" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Gross Price in Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Qty" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unit="Uom" sap:label="BAL Quantity" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amt" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="3" sap:unit="Waers" sap:label="BAL Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AmtC" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="BAL Amount in Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="QtyWo" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unit="Uom" sap:label="Quantity WO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AmtWo" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="3" sap:unit="Waers" sap:label="Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="sesItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BalId"/>
+                    <PropertyRef Name="Lblni"/>
+                </Key>
+                <Property Name="BalId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Berita Acara Lap." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lblni" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Entry Sheet" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsDeleted" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Is Deleted" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DeleteDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Deleted Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IsAccepted" Type="Edm.String" Nullable="false" MaxLength="1" sap:label="Is Accepted" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AcceptedDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Accepted Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="PostingDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Posting Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Created Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangeDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:label="Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Changed by" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="header_ses" sap:content-version="1">
+                <End Type="ZGW_BAL_SRV.bal" Multiplicity="1" Role="FromRole_header_ses"/>
+                <End Type="ZGW_BAL_SRV.sesItem" Multiplicity="*" Role="ToRole_header_ses"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_header_ses">
+                        <PropertyRef Name="BalId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_header_ses">
+                        <PropertyRef Name="BalId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="header_item" sap:content-version="1">
+                <End Type="ZGW_BAL_SRV.bal" Multiplicity="1" Role="FromRole_header_item"/>
+                <End Type="ZGW_BAL_SRV.balItem" Multiplicity="*" Role="ToRole_header_item"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_header_item">
+                        <PropertyRef Name="BalId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_header_item">
+                        <PropertyRef Name="BalId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZGW_BAL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="balSet" EntityType="ZGW_BAL_SRV.bal" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="balItemSet" EntityType="ZGW_BAL_SRV.balItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="sesItemSet" EntityType="ZGW_BAL_SRV.sesItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="header_itemSet" Association="ZGW_BAL_SRV.header_item" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="balSet" Role="FromRole_header_item"/>
+                    <End EntitySet="balItemSet" Role="ToRole_header_item"/>
+                </AssociationSet>
+                <AssociationSet Name="header_sesSet" Association="ZGW_BAL_SRV.header_ses" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="balSet" Role="FromRole_header_ses"/>
+                    <End EntitySet="sesItemSet" Role="ToRole_header_ses"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="http://ppfioridev.ptpp.co.id:44300/sap/opu/odata/sap/ZGW_BAL_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="http://ppfioridev.ptpp.co.id:44300/sap/opu/odata/sap/ZGW_BAL_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

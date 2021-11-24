@@ -1,0 +1,174 @@
+<mvc:View controllerName="ZAPP_APPR_BAL.ZAPP_APPR_BAL.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<ObjectHeader id="objectHeader" intro="{BalId}" title="{BalDescr}"
+				number="{ parts:[{path:'Amt'},{path:'Waers'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
+				numberUnit="{Waers}">
+				<ObjectAttribute title="Workorder" text="{WoId} - {WoDesc}"/>
+				<statuses>
+					<ObjectStatus class="sapMObjectStatusLarge" icon="sap-icon://information" title="Approval" text="{Status}"
+						state="{path: 'Status', formatter:'.setStatusState'}"/>
+				</statuses>
+			</ObjectHeader>
+			<IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter id="iconTabBarFilter1" icon="sap-icon://hint" tooltip="{i18n>detailIconTabBarInfo}">
+						<Vbox class="sapUiSmallMargin">
+							<f:Form id="FormDisplay354" editable="false">
+								<f:title>
+									<core:Title text="Informasi Berita Acara Lapangan"/>
+								</f:title>
+								<f:layout>
+									<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+										emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+								</f:layout>
+								<f:formContainers>
+									<f:FormContainer>
+										<f:FormElement label="Purchase Order">
+											<f:fields>
+												<Text text="{Ebeln}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Workorder">
+											<f:fields>
+												<Text text="{WoId} - {WoDesc}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Project">
+											<f:fields>
+												<Text text="{Pspid} - {PspidT}" id="projectid"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Purchasing Group">
+											<f:fields>
+												<Text text="{Ekgrp} - {EkgrpT}" id="purchgrp"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Create Date">
+											<f:fields>
+												<Text text="{ path : 'Createdate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } " id="idCreateDate"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Created By">
+											<f:fields>
+												<Text text="{Createdby}" id="idCreatedBy"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Last change at">
+											<f:fields>
+												<Text text="{ path : 'Changedate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } " id="idLastChange"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Last change by">
+											<f:fields>
+												<Text text="{Changeby}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Reject Note" visible="{= ${IsRejected} === 'X' ? true : false }">
+											<f:fields>
+												<MessageStrip class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop" type="Warning" text="{RejectNote}" visible="{= ${IsRejected} === 'X' ? true : false }"/>
+											</f:fields>
+										</f:FormElement>
+									</f:FormContainer>
+								</f:formContainers>
+							</f:Form>
+						</Vbox>
+					</IconTabFilter>
+					<IconTabFilter id="iconTabBarFilter2" icon="sap-icon://attachment" tooltip="{i18n>detailIconTabBarAttachments}"></IconTabFilter>
+				</items>
+			</IconTabBar>
+			<Table id="lineItemsList" width="auto" items="{balItemSet}" updateFinished="onListUpdateFinished"
+				noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}"/>
+					</Toolbar>
+				</headerToolbar>
+				<!-- Header Section -->
+				<columns>
+					<Column><Text text="Item"/></Column>
+					<Column><Text text="Kode Service"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="WBS"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Harga Satuan"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Qty WO"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Amt WO"/></Column>
+					<Column><Text text="Qty BAL"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Amt BAL"/></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{WoItemId}"/>
+							<Text text="{Srvpos} - {Text1}"/>
+							<Text text="{Posid} - {PosidT}"/>
+							<Text text="{GrossPriceC} {WaersC}"/>
+							<Text text="{QtyWoC} {UomC}"/>
+							<Text text="{AmtWoC} {Waers}"/>
+							<Text text="{QtyC} {UomC}"/>
+							<Text text="{AmtC} {Waers}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			<Table id="sesItemsList" width="auto" items="{sesItemSet}" updateFinished="onListUpdateFinished" noDataText="No SES Item"
+				busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin"
+				visible="{path: 'IsSesCreated', formatter: '.setVisible'}">
+				<headerToolbar>
+					<Toolbar id="sesItemsToolbar">
+						<Title id="sesItemsHeader" text="SES"/>
+					</Toolbar>
+				</headerToolbar>
+				<!-- Header Section -->
+				<columns>
+					<Column width="12em"><Text text="Entry Sheet"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center"><Text text="Is Accepted"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Accepted Date"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Posting Date"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Created Date"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Created By"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Changed On"/></Column>
+					<Column minScreenWidth="Tablet" demandPopin="true"><Text text="Changed by"/></Column>
+					<Column ><Text text="Acceptance"/></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<Text text="{Lblni}"/>
+							<ObjectStatus icon="{ path: 'IsAccepted', formatter: '.setIconFromFlagChar' }"/>
+							<Text text="{ path : 'AcceptedDate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } "/>
+							<Text text="{ path : 'PostingDate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } "/>
+							<Text text="{ path : 'CreatedDate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } "/>
+							<Text text="{CreatedBy}"/>
+							<Text text="{ path : 'ChangeDate', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd MMM yyyy' } } "/>
+							<Text text="{ChangedBy}"/>
+							<Button icon="sap-icon://flag" press="onSesAcceptClick" visible="{= ${IsAccepted} === '' ? true : false }"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:negativeAction>
+			<semantic:NegativeAction text="Reject" id="actionreject" press="onRejectPress"
+				visible="{ parts: [ { path: 'IsApprover' }, { path: 'IsRejected' } ], formatter: '.setRejectVisible' }"/>
+		</semantic:negativeAction>
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction press="onSendEmailPress" visible="{= ${IsReleased} === 'X' ? true : false }" />
+		</semantic:sendEmailAction>
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator press="onMessagesButtonPress" visible="{= ${IsReleased} === 'X' ? false : true }"/>
+		</semantic:messagesIndicator>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://delete" text="Delete" id="deleteAction" press="onDeleteClick" enabled="true"
+				visible="{ parts: [ { path: 'IsDeleted' }, { path: 'IsSesCreated' } ], formatter: '.setDeleteVisible' }"></Button>
+			<Button icon="sap-icon://complete" text="Release" id="releaseAction" press="onReleaseClick" enabled="true"
+				visible="{ parts: [ { path: 'IsApprover' }, { path: 'IsReleased' }, { path: 'IsRejected' } ], formatter: '.setReleaseVisible' }"></Button>
+			<Button icon="sap-icon://task" text="Create SES" id="createSesAction" press="onCreateSesClick" enabled="true"
+				visible="{ parts: [ { path: 'IsApprover' }, { path: 'IsReleased' }, { path: 'IsSesCreated' } ], formatter: '.setCreateSesVisible' }"></Button>
+			<Button icon="sap-icon://delete" text="Delete SES" id="deleteSesAction" press="onSesDeleteClick" enabled="true"
+				visible="{= ${IsSesCreated} === 'X' ? true : false }"></Button>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>
